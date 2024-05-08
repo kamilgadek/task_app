@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:task_app/utils/app_colors.dart';
 
-class FloatingActionButton extends StatelessWidget {
-  const FloatingActionButton({
+class Fab extends StatelessWidget {
+  const Fab({
     super.key,
   });
 

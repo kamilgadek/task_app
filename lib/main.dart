@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
+      
       debugShowCheckedModeBanner: false,
       title: 'Flutter Hive ToDo App',
       theme: ThemeData(
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       ),
-      home: HomeView(),
+      home: const HomeView(),
     );
   }
 }
@@ -70,7 +71,8 @@ class _TestPageState extends State<TestPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+      ),
     );
   }
 }
