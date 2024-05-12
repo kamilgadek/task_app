@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:task_app/space_exts.dart';
 import 'package:task_app/utils/app_colors.dart';
 import 'package:task_app/utils/app_str.dart';
-import 'widget/floating_action_button.dart';
+import 'package:task_app/views/home/widget/task_widget.dart';
+import 'components/floating_action_button.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -80,60 +81,29 @@ class _HomeViewState extends State<HomeView> {
               height: 640,
               width: double.infinity,
               child: ListView.builder(
-                itemCount: 10,
+                itemCount: 20,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
-                  return AnimatedContainer(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: AppColors.primaryColor.withOpacity(0.3),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          offset: Offset(0, 4),
-                          blurRadius: 10,
+                  return Dismissible(
+                    direction: DismissDirection.horizontal,
+                    onDismissed: (_) {},
+                    background:  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.delete_outline,
                         ),
+                        8.w,
+                        const Text(
+                          AppStr.deletedTask,
+                          style: TextStyle(color: Colors.grey),
+                        )
                       ],
                     ),
-                    duration: const Duration(
-                      microseconds: 600,
+                    key: Key(
+                      index.toString(),
                     ),
-
-                    // check Icon
-                    child: ListTile(
-                      leading: GestureDetector(
-                        onTap: () {
-                          //check or uncheck the task
-                        },
-                        child: AnimatedContainer(
-                          duration: Duration(milliseconds: 600),
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryColor,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.grey,
-                              width: .8,
-                            ),
-                          ),
-                          child: const Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      title: const Text(
-                        'Done',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                          //decoration: TextDecoration.lineThrough,
-                        ),
-                      ),
-                    ),
+                    child: const TaskWidget(),
                   );
                 },
               ),
