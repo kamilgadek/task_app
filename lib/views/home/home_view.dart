@@ -77,7 +77,7 @@ class _HomeViewState extends State<HomeView> {
 
             //Tasks List
             SizedBox(
-              height: 600,
+              height: 640,
               width: double.infinity,
               child: ListView.builder(
                 itemCount: 10,
@@ -89,12 +89,51 @@ class _HomeViewState extends State<HomeView> {
                       vertical: 8,
                     ),
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
                       color: AppColors.primaryColor.withOpacity(0.3),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          offset: Offset(0, 4),
+                          blurRadius: 10,
+                        ),
+                      ],
                     ),
                     duration: const Duration(
                       microseconds: 600,
                     ),
-                    child: const ListTile(),
+
+                    // check Icon
+                    child: ListTile(
+                      leading: GestureDetector(
+                        onTap: () {
+                          //check or uncheck the task
+                        },
+                        child: AnimatedContainer(
+                          duration: Duration(milliseconds: 600),
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryColor,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.grey,
+                              width: .8,
+                            ),
+                          ),
+                          child: const Icon(
+                            Icons.check,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      title: const Text(
+                        'Done',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          //decoration: TextDecoration.lineThrough,
+                        ),
+                      ),
+                    ),
                   );
                 },
               ),
