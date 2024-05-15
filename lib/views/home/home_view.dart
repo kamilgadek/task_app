@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:task_app/space_exts.dart';
 import 'package:task_app/utils/app_colors.dart';
 import 'package:task_app/utils/app_str.dart';
+import 'package:task_app/utils/constants.dart';
 import 'package:task_app/views/home/widget/task_widget.dart';
 import 'components/floating_action_button.dart';
+import 'package:lottie/lottie.dart';
+
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -14,6 +17,8 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   @override
+  final List<int> testing = [];
+
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
@@ -80,34 +85,40 @@ class _HomeViewState extends State<HomeView> {
             SizedBox(
               height: 640,
               width: double.infinity,
-              child: ListView.builder(
-                itemCount: 20,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  return Dismissible(
-                    direction: DismissDirection.horizontal,
-                    onDismissed: (_) {},
-                    background:  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+              child: testing.isNotEmpty
+                  ? ListView.builder(
+                      itemCount: testing.length,
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index) {
+                        return Dismissible(
+                          direction: DismissDirection.horizontal,
+                          onDismissed: (_) {},
+                          background: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.delete_outline,
+                              ),
+                              8.w,
+                              const Text(
+                                AppStr.deletedTask,
+                                style: TextStyle(color: Colors.grey),
+                              )
+                            ],
+                          ),
+                          key: Key(
+                            index.toString(),
+                          ),
+                          child: const TaskWidget(),
+                        );
+                      },
+                    )
+                  : Column(
                       children: [
-                        const Icon(
-                          Icons.delete_outline,
-                        ),
-                        8.w,
-                        const Text(
-                          AppStr.deletedTask,
-                          style: TextStyle(color: Colors.grey),
-                        )
+                       Lottie.asset(lottieURL),
                       ],
                     ),
-                    key: Key(
-                      index.toString(),
-                    ),
-                    child: const TaskWidget(),
-                  );
-                },
-              ),
-            )
+            ),
           ],
         ),
       ),
