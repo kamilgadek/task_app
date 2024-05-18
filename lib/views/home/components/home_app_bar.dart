@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomeAppBar extends StatefulWidget {
@@ -38,22 +39,33 @@ class _HomeAppBarState extends State<HomeAppBar>
 
    @override
   Widget build(BuildContext context) {
-    return AppBar(
-      // Ustawienie tła na biały, aby dopasować do reszty aplikacji
-      backgroundColor: Colors.white,
-      elevation: 0, // Ustawienie bez cienia
-      leading: IconButton(
-        onPressed: () {
-          setState(() {
-            isDrawerOpen = !isDrawerOpen;
-            isDrawerOpen
-                ? animationController.forward()
-                : animationController.reverse();
-          });
-        },
-        icon: AnimatedIcon(
-          icon: AnimatedIcons.menu_close,
-          progress: animationController,
+    return SizedBox(
+      width: double.infinity,
+      height: 100,
+      child : Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              onPressed: () {
+                //Tym przyciskiem będę usuwał zadania
+
+              },
+              icon: AnimatedIcon(
+                icon: AnimatedIcons.menu_close,
+                progress: animationController,
+                size: 40,
+              ),
+            ),
+             IconButton(
+              onPressed: onDrawerToogle,
+              icon: Icon(
+                Icons.delete,
+                size: 40,
+              )
+            ),
+          ],
         ),
       ),
     );
