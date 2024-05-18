@@ -3,10 +3,13 @@ import 'package:task_app/space_exts.dart';
 import 'package:task_app/utils/app_colors.dart';
 import 'package:task_app/utils/app_str.dart';
 import 'package:task_app/utils/constants.dart';
+import 'package:task_app/views/home/components/home_app_bar.dart';
 import 'package:task_app/views/home/widget/task_widget.dart';
 import 'components/floating_action_button.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 
+import 'package:animate_do/animate_do.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -16,18 +19,48 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  @override
   final List<int> testing = [];
 
+  @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       backgroundColor: Colors.white,
       floatingActionButton: const Fab(),
-      body: SizedBox(
-        height: double.infinity,
-        width: double.infinity,
+
+      // body
+      body: SliderDrawer(
+
+        // Drawer
+        slider: Container(
+          color: Colors.red,
+        ),
+
+        appBar: const HomeAppBar(),
+
+        child: _buildHomeBody(textTheme: textTheme, testing: testing),
+      ),
+    );
+  }
+}
+
+// Home Body
+class _buildHomeBody extends StatelessWidget {
+  const _buildHomeBody({
+    required this.textTheme,
+    required this.testing,
+  });
+
+  final TextTheme textTheme;
+  final List<int> testing;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: double.infinity,
+      width: double.infinity,
+      child: Expanded(
         child: Column(
           children: [
             // Custome AppBar
@@ -51,7 +84,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
                   25.w,
-
+        
                   // Top level task info (1 of 3)
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -71,7 +104,7 @@ class _HomeViewState extends State<HomeView> {
                 ],
               ),
             ),
-
+        
             // Divider (linia pod AppBar)
             const Padding(
               padding: EdgeInsets.only(top: 10),
@@ -80,12 +113,14 @@ class _HomeViewState extends State<HomeView> {
                 indent: 100,
               ),
             ),
-
+        
             //Tasks List
             SizedBox(
-              height: 640,
+              height: 584,
               width: double.infinity,
               child: testing.isNotEmpty
+        
+                  // Tasks list is not empty
                   ? ListView.builder(
                       itemCount: testing.length,
                       scrollDirection: Axis.vertical,
@@ -113,9 +148,28 @@ class _HomeViewState extends State<HomeView> {
                         );
                       },
                     )
+        
+                  // Tasks list is empty
                   : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                       Lottie.asset(lottieURL),
+                        // Lottie Anime
+                        FadeIn(
+                          child: SizedBox(
+                            height: 200,
+                            width: 200,
+                            child: Lottie.asset(
+                              lottieURL,
+                              animate: testing.isNotEmpty ? false : true,
+                            ),
+                          ),
+                        ),
+        
+                        // sub Text
+                        FadeInUp(
+                          from: 30,
+                          child: const Text(AppStr.doneAllTask),
+                        ),
                       ],
                     ),
             ),
