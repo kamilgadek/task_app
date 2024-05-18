@@ -36,7 +36,7 @@ class _HomeViewState extends State<HomeView> {
         slider: Container(
           color: Colors.red,
         ),
-
+        
         appBar: const HomeAppBar(),
 
         child: _buildHomeBody(textTheme: textTheme, testing: testing),
@@ -116,7 +116,7 @@ class _buildHomeBody extends StatelessWidget {
         
             //Tasks List
             SizedBox(
-              height: 584,
+              height: 535,
               width: double.infinity,
               child: testing.isNotEmpty
         

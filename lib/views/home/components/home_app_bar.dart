@@ -10,7 +10,7 @@ class HomeAppBar extends StatefulWidget {
 class _HomeAppBarState extends State<HomeAppBar>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
-  bool isDrawerOpern = false;
+  bool isDrawerOpen = false;
 
   @override
   void initState() {
@@ -27,21 +27,34 @@ class _HomeAppBarState extends State<HomeAppBar>
     super.dispose();
   }
 
-  @override
+  void onDrawerToogle() {
+    isDrawerOpen = !isDrawerOpen;
+    if (isDrawerOpen) {
+      animationController.forward();
+    }else {
+      animationController.reverse();
+    }
+  }
+
+   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: kToolbarHeight,
-      width: MediaQuery.of(context).size.width, 
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () {},
-            icon: AnimatedIcon(
-              icon: AnimatedIcons.menu_close,
-              progress: animationController,
-            ),
-          ),
-        ],
+    return AppBar(
+      // Ustawienie tła na biały, aby dopasować do reszty aplikacji
+      backgroundColor: Colors.white,
+      elevation: 0, // Ustawienie bez cienia
+      leading: IconButton(
+        onPressed: () {
+          setState(() {
+            isDrawerOpen = !isDrawerOpen;
+            isDrawerOpen
+                ? animationController.forward()
+                : animationController.reverse();
+          });
+        },
+        icon: AnimatedIcon(
+          icon: AnimatedIcons.menu_close,
+          progress: animationController,
+        ),
       ),
     );
   }
