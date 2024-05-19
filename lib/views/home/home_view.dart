@@ -19,6 +19,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+   final GlobalKey<SliderDrawerState> drawerKey = GlobalKey<SliderDrawerState>();
   final List<int> testing = [];
 
   @override
@@ -31,13 +32,15 @@ class _HomeViewState extends State<HomeView> {
 
       // body
       body: SliderDrawer(
-
+          key: drawerKey,
+          isDraggable: false,
+          animationDuration: 1000,
         // Drawer
         slider: Container(
           color: Colors.red,
         ),
         
-        appBar: const HomeAppBar(),
+        appBar:  HomeAppBar(drawerKey: drawerKey,),
 
         child: _buildHomeBody(textTheme: textTheme, testing: testing),
       ),

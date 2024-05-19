@@ -1,8 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 
 class HomeAppBar extends StatefulWidget {
-  const HomeAppBar({super.key});
+  const HomeAppBar({super.key, required this.drawerKey});
+
+  final GlobalKey<SliderDrawerState> drawerKey;
 
   @override
   State<HomeAppBar> createState() => _HomeAppBarState();
@@ -32,8 +34,10 @@ class _HomeAppBarState extends State<HomeAppBar>
     isDrawerOpen = !isDrawerOpen;
     if (isDrawerOpen) {
       animationController.forward();
+      widget.drawerKey.currentState!.openSlider();
     }else {
       animationController.reverse();
+      widget.drawerKey.currentState!.closeSlider();
     }
   }
 
@@ -48,10 +52,9 @@ class _HomeAppBarState extends State<HomeAppBar>
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              onPressed: () {
-                //Tym przyciskiem będę usuwał zadania
-
-              },
+              onPressed:
+                onDrawerToogle,
+              
               icon: AnimatedIcon(
                 icon: AnimatedIcons.menu_close,
                 progress: animationController,
@@ -60,7 +63,7 @@ class _HomeAppBarState extends State<HomeAppBar>
             ),
              IconButton(
               onPressed: onDrawerToogle,
-              icon: Icon(
+              icon: const Icon(
                 Icons.delete,
                 size: 40,
               )
