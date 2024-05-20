@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_app/views/home/home_view.dart';
+import 'package:task_app/views/tasks/task_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -54,7 +55,8 @@ class MyApp extends StatelessWidget {
         ),
       ),
       ),
-      home: const HomeView(),
+     home: const HomeView(),
+     
     );
   }
 }

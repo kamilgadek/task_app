@@ -4,6 +4,7 @@ import 'package:task_app/utils/app_colors.dart';
 import 'package:task_app/utils/app_str.dart';
 import 'package:task_app/utils/constants.dart';
 import 'package:task_app/views/home/components/home_app_bar.dart';
+import 'package:task_app/views/home/components/slider_drawer.dart';
 import 'package:task_app/views/home/widget/task_widget.dart';
 import 'components/floating_action_button.dart';
 import 'package:lottie/lottie.dart';
@@ -36,9 +37,7 @@ class _HomeViewState extends State<HomeView> {
           isDraggable: false,
           animationDuration: 1000,
         // Drawer
-        slider: Container(
-          color: Colors.red,
-        ),
+        slider: CustomDrawer(),
         
         appBar:  HomeAppBar(drawerKey: drawerKey,),
 

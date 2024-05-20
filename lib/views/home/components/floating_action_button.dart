@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:task_app/utils/app_colors.dart';
+import 'package:task_app/views/tasks/task_view.dart';
 
 class Fab extends StatelessWidget {
   const Fab({
@@ -10,7 +12,12 @@ class Fab extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print("Task View");
+        Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (_) => const TaskView(),
+          ),
+        );
       },
       child: Material(
         borderRadius: BorderRadius.circular(15),
