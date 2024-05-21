@@ -14,50 +14,99 @@ class _TaskViewState extends State<TaskView> {
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
 
-    return Scaffold(
-      // appBar
-      appBar: const TaskViewAppBar(),
-
-      // Body
-      body: SizedBox(
-        height: double.infinity,
-        width: double.infinity,
-        child: Column(
-          children: [
-            SizedBox(
-                width: double.infinity,
-                height: 100,
-                child: Row(
-                  children: [
-                    const SizedBox(
-                      width: 70,
-                      child: Divider(
-                        thickness: 2,
+    // I can tap on screen and hide keybord
+    return GestureDetector( onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
+      child: Scaffold(
+        // appBar
+        appBar: const TaskViewAppBar(),
+      
+        // Body
+        body: SizedBox(
+          height: double.infinity,
+          width: double.infinity,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                // Top Text
+                _buildTopSideTexts(textTheme),
+      
+                SizedBox(
+                  width: double.infinity,
+                  height: 530,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30),
+                        child: Text(
+                          AppStr.titleOfTitleTextField,
+                          style: textTheme.headlineMedium,
+                        ),
                       ),
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        text: AppStr.addNewTask + ' ',
-                        style: textTheme.titleLarge,
-                        children: const [
-                          TextSpan(
-                            text: AppStr.taskString,
-                            style: TextStyle(fontWeight: FontWeight.w400),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 16),
+                        width: double.infinity,
+                        child: TextFormField(
+                          maxLines: 6,
+                          cursorHeight: 60,
+                          style: TextStyle(
+                            color: Colors.black,
                           ),
-                        ],
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey.shade300,
+                              ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey.shade300,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 70,
-                      child: Divider(
-                        thickness: 2,
-                      ),
-                    ),
-                  ],
-                )),
-          ],
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
+  }
+
+  SizedBox _buildTopSideTexts(TextTheme textTheme) {
+    return SizedBox(
+        width: double.infinity,
+        height: 100,
+        child: Row(
+          children: [
+            const SizedBox(
+              width: 70,
+              child: Divider(
+                thickness: 2,
+              ),
+            ),
+            RichText(
+              text: TextSpan(
+                text: AppStr.addNewTask + ' ',
+                style: textTheme.titleLarge,
+                children: const [
+                  TextSpan(
+                    text: AppStr.taskString,
+                    style: TextStyle(fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              width: 70,
+              child: Divider(
+                thickness: 2,
+              ),
+            ),
+          ],
+        ));
   }
 }
