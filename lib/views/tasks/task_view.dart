@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cupertino_date_picker_fork/flutter_cupertino_date_picker_fork.dart';
 import 'package:task_app/utils/app_str.dart';
+import 'package:task_app/views/tasks/components/rep_textfield.dart';
 import 'package:task_app/views/tasks/widget/task_view_app_bar.dart';
 
 class TaskView extends StatefulWidget {
@@ -10,16 +12,21 @@ class TaskView extends StatefulWidget {
 }
 
 class _TaskViewState extends State<TaskView> {
+  final TextEditingController titleTaskController = TextEditingController();
+  final TextEditingController descriptionTaskController =
+      TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
 
     // I can tap on screen and hide keybord
-    return GestureDetector( onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
       child: Scaffold(
         // appBar
         appBar: const TaskViewAppBar(),
-      
+
         // Body
         body: SizedBox(
           height: double.infinity,
@@ -29,7 +36,7 @@ class _TaskViewState extends State<TaskView> {
               children: [
                 // Top Text
                 _buildTopSideTexts(textTheme),
-      
+
                 SizedBox(
                   width: double.infinity,
                   height: 530,
@@ -42,26 +49,68 @@ class _TaskViewState extends State<TaskView> {
                           style: textTheme.headlineMedium,
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 16),
-                        width: double.infinity,
-                        child: TextFormField(
-                          maxLines: 6,
-                          cursorHeight: 60,
-                          style: TextStyle(
-                            color: Colors.black,
+
+                      // Title Task Controller
+                      RepTextField(controller: titleTaskController),
+
+                      SizedBox(
+                        height: 10,
+                      ),
+
+                      RepTextField(
+                        controller: descriptionTaskController,
+                        isForDescription: true,
+                      ),
+
+                      GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (_) => SizedBox(
+                              height: 280,
+                              child: TimePickerWidget(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          margin: EdgeInsets.all(20),
+                          height: 55,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Colors.grey.shade300,
+                            ),
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          decoration: InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade300,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10.0),
+                                child: Text(
+                                  AppStr.timeString,
+                                  style: textTheme.headlineSmall,
+                                ),
                               ),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey.shade300,
+                              Container(
+                                margin: EdgeInsets.only(
+                                  right: 10,
+                                ),
+                                width: 80,
+                                height: 35,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey.shade100,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Time',
+                                    style: textTheme.titleSmall,
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
                       ),
@@ -90,7 +139,7 @@ class _TaskViewState extends State<TaskView> {
             ),
             RichText(
               text: TextSpan(
-                text: AppStr.addNewTask + ' ',
+                text: '${AppStr.addNewTask} ',
                 style: textTheme.titleLarge,
                 children: const [
                   TextSpan(
